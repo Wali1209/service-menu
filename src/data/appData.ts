@@ -8,10 +8,10 @@ export const templateApps: TemplateApp[] = [
     description: 'Turn your menu into a beautiful app, accept bookings, and engage your customers.',
     price: 'Starting at $300',
     screenshots: [
-      '/assets/images/restaurant-1.png',
-      '/assets/images/restaurant-2.png',
-      '/assets/images/restaurant-3.png',
-      '/assets/images/restaurant-4.png'
+      '/assets/images/restaurant-1.jpg',
+      '/assets/images/restaurant-2.jpg',
+      '/assets/images/restaurant-3.jpg',
+      '/assets/images/restaurant-4.jpg'
     ],
     video: '/assets/videos/restaurant-video.mp4'
   },
@@ -21,10 +21,10 @@ export const templateApps: TemplateApp[] = [
     description: 'Showcase your services, accept appointments, and manage your business on the go.',
     price: 'Starting at $300',
     screenshots: [
-      '/assets/images/barber-1.png',
-      '/assets/images/barber-2.png',
-      '/assets/images/barber-3.png',
-      '/assets/images/barber-4.png'
+      '/assets/images/barber-1.jpg',
+      '/assets/images/barber-2.jpg',
+      '/assets/images/barber-3.jpg',
+      '/assets/images/barber-4.jpg'
     ],
     video: '/assets/videos/barber-video.mp4'
   },
@@ -34,10 +34,10 @@ export const templateApps: TemplateApp[] = [
     description: 'Schedule classes, track member progress, and build your fitness community.',
     price: 'Starting at $300',
     screenshots: [
-      '/assets/images/gym-1.png',
-      '/assets/images/gym-2.png',
-      '/assets/images/gym-3.png',
-      '/assets/images/gym-4.png'
+      '/assets/images/gym-1.jpg',
+      '/assets/images/gym-2.jpg',
+      '/assets/images/gym-3.jpg',
+      '/assets/images/gym-4.jpg'
     ],
     video: '/assets/videos/gym-video.mp4'
   }
