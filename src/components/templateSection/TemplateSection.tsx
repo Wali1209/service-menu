@@ -34,7 +34,7 @@ const TemplateSection: React.FC<TemplateSectionProps> = ({
             <video
               controls
               className="demo-video"
-              poster={`src/assets/videos/${app.id}-video-poster.png`}
+              poster={`/assets/videos/${app.id}-video-poster.png`}
             >
               <source src={app.video} type="video/mp4" />
               Your browser does not support the video tag.
