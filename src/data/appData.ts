@@ -11,7 +11,10 @@ export const templateApps: TemplateApp[] = [
       '/assets/images/restaurant-1.jpg',
       '/assets/images/restaurant-2.jpg',
       '/assets/images/restaurant-3.jpg',
-      '/assets/images/restaurant-4.jpg'
+      '/assets/images/restaurant-4.jpg',
+      '/assets/images/restaurant-5.jpg',
+      '/assets/images/restaurant-6.jpg',
+      '/assets/images/restaurant-7.jpg',
     ],
     video: '/assets/videos/restaurant-video.mp4'
   },

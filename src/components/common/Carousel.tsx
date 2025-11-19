@@ -6,17 +6,28 @@ interface CarouselProps {
 
 const Carousel: React.FC<CarouselProps> = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const nextSlide = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === images.length - 1 ? 0 : prevIndex + 1
-    );
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === images.length - 1 ? 0 : prevIndex + 1
+      );
+      setIsTransitioning(false);
+    }, 300);
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? images.length - 1 : prevIndex - 1
-    );
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === 0 ? images.length - 1 : prevIndex - 1
+      );
+      setIsTransitioning(false);
+    }, 300);
   };
 
   return (
@@ -30,7 +41,9 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
           <img
             src={images[currentIndex]}
             alt={`App screenshot ${currentIndex + 1}`}
-            className="carousel-image"
+            className={`carousel-image ${
+              isTransitioning ? "fade-out" : "fade-in"
+            }`}
           />
         </div>
 
@@ -44,7 +57,15 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
           <button
             key={index}
             className={`carousel-dot ${index === currentIndex ? "active" : ""}`}
-            onClick={() => setCurrentIndex(index)}
+            onClick={() => {
+              if (!isTransitioning) {
+                setIsTransitioning(true);
+                setTimeout(() => {
+                  setCurrentIndex(index);
+                  setIsTransitioning(false);
+                }, 300);
+              }
+            }}
           />
         ))}
       </div>
