@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 interface CarouselProps {
   images: string[];
@@ -6,28 +6,37 @@ interface CarouselProps {
 
 const Carousel: React.FC<CarouselProps> = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const imageRef = useRef<HTMLImageElement>(null);
+
+  // Pre-load images
+  useEffect(() => {
+    images.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, [images]);
 
   const nextSlide = () => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setCurrentIndex((prevIndex) =>
-        prevIndex === images.length - 1 ? 0 : prevIndex + 1
-      );
-      setIsTransitioning(false);
-    }, 300);
+    setIsLoading(true);
+    setCurrentIndex((prevIndex) =>
+      prevIndex === images.length - 1 ? 0 : prevIndex + 1
+    );
   };
 
   const prevSlide = () => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setCurrentIndex((prevIndex) =>
-        prevIndex === 0 ? images.length - 1 : prevIndex - 1
-      );
-      setIsTransitioning(false);
-    }, 300);
+    setIsLoading(true);
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? images.length - 1 : prevIndex - 1
+    );
+  };
+
+  const handleImageLoad = () => {
+    setIsLoading(false);
+  };
+
+  const handleImageError = () => {
+    setIsLoading(false);
   };
 
   return (
@@ -38,12 +47,19 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
         </button>
 
         <div className="carousel-slide">
+          {isLoading && (
+            <div className="carousel-loading">
+              <div className="loading-spinner">Loading...</div>
+            </div>
+          )}
           <img
+            ref={imageRef}
             src={images[currentIndex]}
             alt={`App screenshot ${currentIndex + 1}`}
-            className={`carousel-image ${
-              isTransitioning ? "fade-out" : "fade-in"
-            }`}
+            className={`carousel-image ${isLoading ? "loading" : "loaded"}`}
+            onLoad={handleImageLoad}
+            onError={handleImageError}
+            style={{ opacity: isLoading ? 0 : 1 }}
           />
         </div>
 
@@ -58,13 +74,8 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
             key={index}
             className={`carousel-dot ${index === currentIndex ? "active" : ""}`}
             onClick={() => {
-              if (!isTransitioning) {
-                setIsTransitioning(true);
-                setTimeout(() => {
-                  setCurrentIndex(index);
-                  setIsTransitioning(false);
-                }, 300);
-              }
+              setIsLoading(true);
+              setCurrentIndex(index);
             }}
           />
         ))}
